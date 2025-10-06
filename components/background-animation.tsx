@@ -117,7 +117,7 @@ export default function BackgroundAnimation() {
         const material = new THREE.MeshBasicMaterial({
           map: texture,
           transparent: true,
-          opacity: 0.75,
+          opacity: 0.15,
           side: THREE.DoubleSide,
         });
 
@@ -147,28 +147,6 @@ export default function BackgroundAnimation() {
       }
     });
 
-    // Create connecting lines
-    const lineGeometry = new THREE.BufferGeometry();
-    const linePositions: number[] = [];
-    
-    for (let i = 0; i < 200; i++) {
-      linePositions.push(
-        (Math.random() - 0.5) * 50,
-        (Math.random() - 0.5) * 50,
-        (Math.random() - 0.5) * 50
-      );
-    }
-    
-    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-    
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: getColor(),
-      transparent: true,
-      opacity: 0.2,
-    });
-    
-    const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(lines);
 
 
     // Mouse movement handler
@@ -183,8 +161,6 @@ export default function BackgroundAnimation() {
     
     // Theme change observer
     const observer = new MutationObserver(() => {
-      const newColor = getColor();
-      
       // Recreate all text textures with new color
       wordData.forEach(data => {
         const newTexture = createTextTexture(data.text, data.fontSize, data.fontWeight, data.fontFamily);
@@ -196,11 +172,6 @@ export default function BackgroundAnimation() {
           data.mesh.material.needsUpdate = true;
         }
       });
-      
-      // Update lines
-      if (lineMaterial) {
-        lineMaterial.color.setHex(newColor);
-      }
     });
 
     observer.observe(document.documentElement, {
@@ -238,10 +209,6 @@ export default function BackgroundAnimation() {
         mesh.position.z += (targetZ - mesh.position.z) * 0.01;
       });
 
-      // Animate lines
-      lines.rotation.x += 0.002;
-      lines.rotation.y += 0.003;
-
       // Camera movement - wild
       camera.position.x = Math.sin(time * 0.3) * 5 + mouseRef.current.x * 10;
       camera.position.y = Math.cos(time * 0.2) * 5 + mouseRef.current.y * 10;
@@ -278,9 +245,6 @@ export default function BackgroundAnimation() {
         }
         material.dispose();
       });
-      
-      lineGeometry.dispose();
-      lineMaterial.dispose();
       
       if (containerRef.current && renderer.domElement.parentNode === containerRef.current) {
         containerRef.current.removeChild(renderer.domElement);
