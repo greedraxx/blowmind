@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://blowmind.com";
+  const baseUrl = "https://blowmind-three.vercel.app";
 
   return [
     {
@@ -11,19 +11,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}#about`,
+      url: `${baseUrl}/#about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}#works`,
+      url: `${baseUrl}/#services`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/#works`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}#contact`,
+      url: `${baseUrl}/#contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
