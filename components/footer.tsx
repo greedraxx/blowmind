@@ -85,7 +85,7 @@ export default function Footer() {
               <ul className="space-y-3 text-sm font-light">
                 <li>
                   <a href="mailto:hello@blowmind.com" className="opacity-60 hover:opacity-100 transition-opacity">
-                    hello@blowmind.com
+                    blowmindist@gmail.com
                   </a>
                 </li>
               </ul>
